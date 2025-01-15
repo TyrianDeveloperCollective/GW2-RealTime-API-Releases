@@ -11,7 +11,9 @@
 
 #define RTAPI_VERSION 1
 
-enum class EGameState
+#include <cstdint>
+
+enum class EGameState : uint32_t
 {
 	CharacterSelection,
 	CharacterCreation,
@@ -20,7 +22,7 @@ enum class EGameState
 	Gameplay
 };
 
-enum class ELanguage
+enum class ELanguage : uint32_t
 {
 
 };
@@ -32,7 +34,7 @@ struct GameData
 	ELanguage  Language;
 };
 
-enum class ETime
+enum class ETime : uint32_t
 {
 	Dawn,
 	Day,
@@ -46,27 +48,16 @@ struct WorldData
 	ETime TimeOfDay;
 };
 
-enum class ECharState
-{
-	None,
-	Alive,
-	Downed,
-	InWater,
-	Gliding
-};
-
 struct CharacterData
 {
-	char       AccountName[32];
-	char       CharacterName[20];
-	float      Position[3];
-	float      Facing[3];
-	ECharState State;
-
-	//BuildInfo ? // spec, traits, weapons
-	//Gear / Build Template ? // name? everything?
-	//TargetingSettings ?
-	//SelfStats ?
+	char  AccountName[32];
+	char  CharacterName[20];
+	float Position[3];
+	float Facing[3];
+	int   IsAlive   : 1;
+	int   IsDowned  : 1;
+	int   IsInWater : 1;
+	int   IsGliding : 1;
 };
 
 struct CameraData
@@ -74,24 +65,38 @@ struct CameraData
 	float Position[3];
 	float Facing[3];
 	float FOV;
-	bool  IsActionCamera;
-	bool  IsControlled;
+	int   IsActionCamera : 1;
+	int   IsControlled   : 1;
+};
+
+enum class ESquadRole : uint32_t
+{
+	Member,
+	Lieutenant,
+	Commander
 };
 
 struct SquadMember
 {
-	char AccountName[32];
-	char CharacterName[20];
-	int  Subgroup;
-	// role (leader, lieutenant, member, invited, etc)
-	// profession
-	// elitespec
+	char       AccountName[32];
+	char       CharacterName[20];
+	int        Subgroup;
+	ESquadRole Role;
+	int        Profession;
+	int        EliteSpecialization;
 };
 
-struct SquadData
+enum class EGroupType : uint32_t
+{
+	Party,
+	RaidSquad,
+	Squad
+};
+
+struct GroupData
 {
 	float       Markers[8][3];
-	int         MembersCount;  // Members is only filled until count is matched
+	int         MembersCount; // Members is only filled until count is matched and are sorted by subgroup.
 	SquadMember Members[50];
 };
 
@@ -101,7 +106,7 @@ struct RealTimeData
 	WorldData     World;
 	CharacterData Character;
 	CameraData    Camera;
-	SquadData     Squad;
+	GroupData     Group; // Party / Squad
 };
 
 #endif
