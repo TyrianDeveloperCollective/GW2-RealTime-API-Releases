@@ -29,7 +29,7 @@ enum class ELanguage : uint32_t
 
 struct GameData
 {
-	int        Build;
+	int32_t    Build;
 	EGameState State;
 	ELanguage  Language;
 };
@@ -50,23 +50,23 @@ struct WorldData
 
 struct CharacterData
 {
-	char  AccountName[32];
-	char  CharacterName[20];
-	float Position[3];
-	float Facing[3];
-	int   IsAlive   : 1;
-	int   IsDowned  : 1;
-	int   IsInWater : 1;
-	int   IsGliding : 1;
+	char    AccountName[32];
+	char    CharacterName[20];
+	float   Position[3];
+	float   Facing[3];
+	int32_t IsAlive   : 1;
+	int32_t IsDowned  : 1;
+	int32_t IsInWater : 1;
+	int32_t IsGliding : 1;
 };
 
 struct CameraData
 {
-	float Position[3];
-	float Facing[3];
-	float FOV;
-	int   IsActionCamera : 1;
-	int   IsControlled   : 1;
+	float   Position[3];
+	float   Facing[3];
+	float   FOV;
+	int32_t IsActionCamera : 1;
+	int32_t IsControlled   : 1;
 };
 
 enum class ESquadRole : uint32_t
@@ -80,10 +80,10 @@ struct SquadMember
 {
 	char       AccountName[32];
 	char       CharacterName[20];
-	int        Subgroup;
+	int32_t    Subgroup;
 	ESquadRole Role;
-	int        Profession;
-	int        EliteSpecialization;
+	int32_t    Profession;
+	int32_t    EliteSpecialization;
 };
 
 enum class EGroupType : uint32_t
@@ -95,9 +95,10 @@ enum class EGroupType : uint32_t
 
 struct GroupData
 {
+	EGroupType  Type;
+	int32_t     MembersCount;
+	bool        IsLookingForMore;
 	float       Markers[8][3];
-	int         MembersCount; // Members is only filled until count is matched and are sorted by subgroup.
-	SquadMember Members[50];
 };
 
 struct RealTimeData
@@ -106,7 +107,7 @@ struct RealTimeData
 	WorldData     World;
 	CharacterData Character;
 	CameraData    Camera;
-	GroupData     Group; // Party / Squad
+	GroupData     Group;
 };
 
 #endif
