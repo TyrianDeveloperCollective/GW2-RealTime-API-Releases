@@ -22,16 +22,21 @@ enum class EGameState : uint32_t
 	Gameplay
 };
 
-enum class ELanguage : uint32_t
+enum class EGameLanguage : uint32_t
 {
-
+	English,
+	Korean,
+	French,
+	German,
+	Spanish,
+	Chinese
 };
 
 struct GameData
 {
-	int32_t    Build;
-	EGameState State;
-	ELanguage  Language;
+	int32_t        Build;
+	EGameState     State;
+	EGameLanguage  Language;
 };
 
 enum class ETime : uint32_t
@@ -71,6 +76,7 @@ struct CameraData
 	float   Position[3];
 	float   Facing[3];
 	float   FOV;
+	int32_t IsActionCamera : 1;
 };
 
 struct SquadMember
