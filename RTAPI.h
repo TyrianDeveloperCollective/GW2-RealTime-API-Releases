@@ -123,10 +123,6 @@ namespace RTAPI
 	};
 #endif
 
-#ifdef DEFINE_ENUM_FLAG_OPERATORS
-DEFINE_ENUM_FLAG_OPERATORS(ECharacterState)
-#endif
-
 #ifdef __cplusplus
 	///----------------------------------------------------------------------------------------------------
 	/// EMapType Enumeration
