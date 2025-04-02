@@ -95,6 +95,40 @@ namespace RTAPI
 
 #ifdef __cplusplus
 	///----------------------------------------------------------------------------------------------------
+	/// ECharacterState Enumeration
+	///----------------------------------------------------------------------------------------------------
+	enum class ECharacterState : uint32_t
+	{
+		IsAlive      = 1 << 0,
+		IsDowned     = 1 << 1,
+		IsInCombat   = 1 << 2,
+		IsSwimming   = 1 << 3, // aka. Is on water surface
+		IsUnderwater = 1 << 4, // aka. Is diving
+		IsGliding    = 1 << 5,
+		IsFlying     = 1 << 6
+	};
+#else
+	///----------------------------------------------------------------------------------------------------
+	/// ECharacterState Enumeration
+	///----------------------------------------------------------------------------------------------------
+	enum ECharacterState
+	{
+		CS_IsAlive      = 1 << 0,
+		CS_IsDowned     = 1 << 1,
+		CS_IsInCombat   = 1 << 2,
+		CS_IsSwimming   = 1 << 3, // aka. Is on water surface
+		CS_IsUnderwater = 1 << 4, // aka. Is diving
+		CS_IsGliding    = 1 << 5,
+		CS_IsFlying     = 1 << 6
+	};
+#endif
+
+#ifdef DEFINE_ENUM_FLAG_OPERATORS
+DEFINE_ENUM_FLAG_OPERATORS(ECharacterState)
+#endif
+
+#ifdef __cplusplus
+	///----------------------------------------------------------------------------------------------------
 	/// EMapType Enumeration
 	///----------------------------------------------------------------------------------------------------
 	enum class EMapType : uint32_t
@@ -165,54 +199,50 @@ namespace RTAPI
 	typedef struct RealTimeData
 	{
 		/* Game Data */
-		int32_t       GameBuild;
+		int32_t         GameBuild;
 #ifdef __cplusplus
-		EGameState    GameState;
-		EGameLanguage Language;
+		EGameState      GameState;
+		EGameLanguage   Language;
 #else
-		uint32_t      GameState;
-		uint32_t      Language;
+		uint32_t        GameState;
+		uint32_t        Language;
 #endif
 
 		/* Instance/World Data */
 #ifdef __cplusplus
-		ETimeOfDay    TimeOfDay;
+		ETimeOfDay      TimeOfDay;
 #else
-		uint32_t      TimeOfDay;
+		uint32_t        TimeOfDay;
 #endif
-		int32_t       MapID;
+		int32_t         MapID;
 #ifdef __cplusplus
-		EMapType      MapType;
+		EMapType        MapType;
 #else
-		uint32_t      MapType;
+		uint32_t        MapType;
 #endif
-		char          IPAddress[4];
-		float         Cursor[3];          // Location of cursor in the world
-		float         SquadMarkers[8][3]; // Locations of squad markers
+		char            IPAddress[4];
+		float           Cursor[3];          // Location of cursor in the world
+		float           SquadMarkers[8][3]; // Locations of squad markers
 
 		/* Player Data */
-		char          AccountName[32];
-		char          CharacterName[20];
-		float         CharacterPosition[3];
-		float         CharacterFacing[3];
-		int32_t       Profession;
-		int32_t       EliteSpecialization;
-		int32_t       MountIndex;
-		uint32_t      IsAlive      : 1;
-		uint32_t      IsDowned     : 1;
-		uint32_t      IsInCombat   : 1;
-		uint32_t      IsSwimming   : 1; // Is on water surface
-		uint32_t      IsUnderwater : 1; // Is diving
-		uint32_t      IsGliding    : 1;
-		uint32_t      IsFlying     : 1;
-		// Unused Character Flags
+		char            AccountName[32];
+		char            CharacterName[20];
+		float           CharacterPosition[3];
+		float           CharacterFacing[3];
+		int32_t         Profession;
+		int32_t         EliteSpecialization;
+		int32_t         MountIndex;
+#ifdef __cplusplus
+		ECharacterState CharacterState;
+#else
+		uint32_t        CharacterState;
+#endif
 
 		/* Camera Data */
-		float         CameraPosition[3];
-		float         CameraFacing[3];
-		float         CameraFOV;
-		uint32_t      IsActionCamera : 1;
-		// Unused Camera Flags
+		float           CameraPosition[3];
+		float           CameraFacing[3];
+		float           CameraFOV;
+		uint32_t        IsActionCamera;
 	} RealTimeData;
 }
 
