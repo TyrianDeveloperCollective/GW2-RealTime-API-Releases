@@ -9,16 +9,19 @@
 #ifndef RTAPI_DEFINITIONS_H
 #define RTAPI_DEFINITIONS_H
 
-#define RTAPI_DATALINK "DL_RTAPI"
+#define DL_RTAPI                      "RTAPI"
+#define EV_RTAPI_GROUP_MEMBER_JOINED  "RTAPI_GROUP_MEMBER_JOINED"
+#define EV_RTAPI_GROUP_MEMBER_LEFT    "RTAPI_GROUP_MEMBER_LEFT"
+#define EV_RTAPI_GROUP_MEMBER_UPDATED "RTAPI_GROUP_MEMBER_UPDATED"
 
 #include <cstdint>
 
 namespace RTAPI
 {
-#ifdef __cplusplus
 	///----------------------------------------------------------------------------------------------------
 	/// EGameState Enumeration
 	///----------------------------------------------------------------------------------------------------
+#ifdef __cplusplus
 	enum class EGameState : uint32_t
 	{
 		CharacterSelection,
@@ -28,9 +31,6 @@ namespace RTAPI
 		Gameplay
 	};
 #else
-	///----------------------------------------------------------------------------------------------------
-	/// EGameState Enumeration
-	///----------------------------------------------------------------------------------------------------
 	enum EGameState
 	{
 		GS_CharacterSelection,
@@ -41,10 +41,10 @@ namespace RTAPI
 	};
 #endif
 
-#ifdef __cplusplus
 	///----------------------------------------------------------------------------------------------------
 	/// EGameLanguage Enumeration
 	///----------------------------------------------------------------------------------------------------
+#ifdef __cplusplus
 	enum class EGameLanguage : uint32_t
 	{
 		English,
@@ -55,9 +55,6 @@ namespace RTAPI
 		Chinese
 	};
 #else
-	///----------------------------------------------------------------------------------------------------
-	/// EGameLanguage Enumeration
-	///----------------------------------------------------------------------------------------------------
 	enum EGameLanguage
 	{
 		GL_English,
@@ -69,10 +66,10 @@ namespace RTAPI
 	};
 #endif
 
-#ifdef __cplusplus
 	///----------------------------------------------------------------------------------------------------
 	/// ETimeOfDay Enumeration
 	///----------------------------------------------------------------------------------------------------
+#ifdef __cplusplus
 	enum class ETimeOfDay : uint32_t
 	{
 		Dawn,
@@ -81,9 +78,6 @@ namespace RTAPI
 		Night
 	};
 #else
-	///----------------------------------------------------------------------------------------------------
-	/// ETimeOfDay Enumeration
-	///----------------------------------------------------------------------------------------------------
 	enum ETimeOfDay
 	{
 		TOD_Dawn,
@@ -93,10 +87,10 @@ namespace RTAPI
 	};
 #endif
 
-#ifdef __cplusplus
 	///----------------------------------------------------------------------------------------------------
 	/// ECharacterState Enumeration
 	///----------------------------------------------------------------------------------------------------
+#ifdef __cplusplus
 	enum class ECharacterState : uint32_t
 	{
 		IsAlive      = 1 << 0,
@@ -108,9 +102,6 @@ namespace RTAPI
 		IsFlying     = 1 << 6
 	};
 #else
-	///----------------------------------------------------------------------------------------------------
-	/// ECharacterState Enumeration
-	///----------------------------------------------------------------------------------------------------
 	enum ECharacterState
 	{
 		CS_IsAlive      = 1 << 0,
@@ -123,10 +114,10 @@ namespace RTAPI
 	};
 #endif
 
-#ifdef __cplusplus
 	///----------------------------------------------------------------------------------------------------
 	/// EMapType Enumeration
 	///----------------------------------------------------------------------------------------------------
+#ifdef __cplusplus
 	enum class EMapType : uint32_t
 	{
 		AutoRedirect,
@@ -150,9 +141,6 @@ namespace RTAPI
 		WvW_Lounge
 	};
 #else
-	///----------------------------------------------------------------------------------------------------
-	/// EMapType Enumeration
-	///----------------------------------------------------------------------------------------------------
 	enum EMapType
 	{
 		MT_AutoRedirect,
@@ -178,15 +166,40 @@ namespace RTAPI
 #endif
 
 	///----------------------------------------------------------------------------------------------------
+	/// EGroupType Enumeration
+	///----------------------------------------------------------------------------------------------------
+#ifdef __cplusplus
+	enum class EGroupType : uint32_t
+	{
+		None,
+		Party,
+		RaidSquad,
+		Squad
+	};
+#else
+	enum EGroupType
+	{
+		GT_None,
+		GT_Party,
+		GT_RaidSquad,
+		GT_Squad
+	};
+#endif
+
+	///----------------------------------------------------------------------------------------------------
 	/// GroupMember Struct
 	///----------------------------------------------------------------------------------------------------
 	typedef struct GroupMember
 	{
-		char    AccountName[32];
-		char    CharacterName[20];
-		int32_t Subgroup;
-		int32_t Profession;          // -1 = Unknown, 0-9 = Profession
-		int32_t EliteSpecialization; // -1 = Unknown, value is id of elite spec
+		char     AccountName[32];
+		char     CharacterName[20];
+		int32_t  Subgroup;            // 0 for parties, 1-15 according to the squad's subgroup
+		int32_t  Profession;          // 0-9 = Profession; -1 Unknown -> e.g. on loading screen or logged out
+		int32_t  EliteSpecialization; // Third Spec ID, not necessarily elite; or -1 Unknown -> e.g. on loading screen or logged out
+		uint32_t IsSelf       : 1;
+		uint32_t IsInInstance : 1;
+		uint32_t IsCommander  : 1;
+		uint32_t IsLieutenant : 1;
 	} GroupMember;
 
 	///----------------------------------------------------------------------------------------------------
@@ -219,8 +232,16 @@ namespace RTAPI
 		char            IPAddress[4];
 		float           Cursor[3];          // Location of cursor in the world
 		float           SquadMarkers[8][3]; // Locations of squad markers
+#ifdef __cplusplus
+		EGroupType      GroupType;
+#else
+		uint32_t        GroupType;
+#endif
+		uint32_t        GroupMemberCount;
+		uint32_t        RESERVED2;
 
 		/* Player Data */
+		uint32_t        RESERVED1;
 		char            AccountName[32];
 		char            CharacterName[20];
 		float           CharacterPosition[3];
