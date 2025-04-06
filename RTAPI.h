@@ -197,7 +197,7 @@ namespace RTAPI
 		int32_t  Profession;          // 0-9 = Profession; -1 Unknown -> e.g. on loading screen or logged out
 		int32_t  EliteSpecialization; // Third Spec ID, not necessarily elite; or -1 Unknown -> e.g. on loading screen or logged out
 		uint32_t IsSelf       : 1;
-		uint32_t IsInInstance : 1;
+		uint32_t IsInInstance : 1;    // Is in the same map instance as the player.
 		uint32_t IsCommander  : 1;
 		uint32_t IsLieutenant : 1;
 	} GroupMember;
@@ -259,7 +259,7 @@ namespace RTAPI
 		float           CameraPosition[3];
 		float           CameraFacing[3];
 		float           CameraFOV;
-		uint32_t        IsActionCamera;
+		uint32_t        IsActionCamera : 1;
 	} RealTimeData;
 }
 
