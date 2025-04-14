@@ -108,8 +108,8 @@ enum EGroupType
 ///----------------------------------------------------------------------------------------------------
 typedef struct GroupMember
 {
-	char     AccountName[32];
-	char     CharacterName[20];
+	char     AccountName[140];
+	char     CharacterName[140];
 	int32_t  Subgroup;            // 0 for parties, 1-15 according to the squad's subgroup
 	int32_t  Profession;          // 0-9 = Profession; -1 Unknown -> e.g. on loading screen or logged out
 	int32_t  EliteSpecialization; // Third Spec ID, not necessarily elite; or -1 Unknown -> e.g. on loading screen or logged out
@@ -142,8 +142,8 @@ typedef struct RealTimeData
 
 	/* Player Data */
 	uint32_t        RESERVED1;
-	char            AccountName[32];
-	char            CharacterName[20];
+	char            AccountName[140];
+	char            CharacterName[140];
 	float           CharacterPosition[3];
 	float           CharacterFacing[3];
 	int32_t         Profession;
