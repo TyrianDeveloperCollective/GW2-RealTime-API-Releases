@@ -10,7 +10,7 @@ RTAPI provides real-time information about Guild Wars 2.
 Anything missing? Please open an issue and it may be added in a future update.
 
 ## Using RTAPI
-The primary object `struct RealTimeData` can be obtained using Nexus' DataLink API. The name of the data link is defined in the header `RTAPI`.
+The primary object `struct RealTimeData` can be obtained using Nexus' DataLink API. The name of the data link is defined in the header `DL_RTAPI`.
 
 As Nexus allows for hot-loading and as such RTAPI can be unloaded at runtime, for example to be updated, the addon has to check that the data has not gone stale.
 You can do this by checking if `RTAPI->GameBuild == 0`.
@@ -18,8 +18,6 @@ If the Game Build is set to 0, RTAPI was unloaded.
 
 It is recommended to also listen to `EV_ADDON_LOADED` and `EV_ADDON_UNLOADED` events, and checking against the signature of RTAPI to automatically switch back to using the realtime data.
 The signature of the addon is also defined in the API header `RTAPI_SIG`.
-
-Real-time group data is individually sent to any addon that loaded after RTAPI.
 
 ### Example implementation (Addon load events)
 ```cpp
@@ -41,4 +39,14 @@ void OnAddonUnloaded(int* aSignature)
     G::RTAPI = nullptr;
   }
 }
+```
+
+### Group Data
+Real-time group data is individually sent to any addon that loaded after RTAPI.
+
+The following events are provided. The payload is `GroupMember*`.
+```cpp
+#define EV_RTAPI_GROUP_MEMBER_JOINED  "RTAPI_GROUP_MEMBER_JOINED"
+#define EV_RTAPI_GROUP_MEMBER_LEFT    "RTAPI_GROUP_MEMBER_LEFT"
+#define EV_RTAPI_GROUP_MEMBER_UPDATED "RTAPI_GROUP_MEMBER_UPDATED"
 ```
