@@ -9,6 +9,7 @@
 #ifndef RTAPI_H
 #define RTAPI_H
 
+#define RTAPI_SIG                     0x2501A02C
 #define DL_RTAPI                      "RTAPI"
 #define EV_RTAPI_GROUP_MEMBER_JOINED  "RTAPI_GROUP_MEMBER_JOINED"
 #define EV_RTAPI_GROUP_MEMBER_LEFT    "RTAPI_GROUP_MEMBER_LEFT"
