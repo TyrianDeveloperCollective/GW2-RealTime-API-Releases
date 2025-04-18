@@ -134,7 +134,7 @@ typedef struct RealTimeData
 	uint32_t        TimeOfDay;
 	int32_t         MapID;
 	uint32_t        MapType;
-	char            IPAddress[4];
+	unsigned char   IPAddress[4];
 	float           Cursor[3];          // Location of cursor in the world
 	float           SquadMarkers[8][3]; // Locations of squad markers
 	uint32_t        GroupType;
