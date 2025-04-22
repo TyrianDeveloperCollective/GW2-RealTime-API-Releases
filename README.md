@@ -1,5 +1,10 @@
 # GW2 RealTime API - RTAPI
 RTAPI provides real-time information about Guild Wars 2.
+
+# Terms of Service Disclaimer
+This API provides more information than the game client normally exposes.
+Any implementation build on top of it still has to ensure that it is within the official [Third Party Program Policy](https://help.guildwars2.com/hc/en-us/articles/360013625034-Policy-Third-Party-Programs).
+
 ## Features
 - Client Info
 - Instance Info
