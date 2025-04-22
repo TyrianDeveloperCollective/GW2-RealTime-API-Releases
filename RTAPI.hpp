@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------------
-/// Copyright (c) Raidcore.GG - All rights reserved.
+/// Copyright (c) Raidcore.GG - Licensed under the MIT license.
 ///
 /// Name         :  RTAPI.hpp
 /// Description  :  Definitions for public-facing real-time API.
