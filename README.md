@@ -1,5 +1,6 @@
 # GW2 RealTime API - RTAPI
 RTAPI provides real-time information about Guild Wars 2.
+Additionally, running RTAPI fixes the long standing "bug", that the Mumble API delivers "laggy" player positions.
 
 # Terms of Service Disclaimer
 This API provides more information than the game client normally exposes.
