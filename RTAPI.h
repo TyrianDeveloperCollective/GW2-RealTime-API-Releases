@@ -157,6 +157,10 @@ typedef struct RealTimeData
 	float    CameraFacing[3];
 	float    CameraFOV;
 	uint32_t IsActionCamera : 1;
+
+	/* Additions. Just slapped on. */
+	uint32_t CharacterLevel;
+	uint32_t CharacterEffectiveLevel;
 } RealTimeData;
 
 #endif
