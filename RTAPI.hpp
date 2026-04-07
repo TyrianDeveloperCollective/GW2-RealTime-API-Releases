@@ -14,7 +14,7 @@
 #define EV_RTAPI_GROUP_MEMBER_JOINED  "RTAPI_GROUP_MEMBER_JOINED"  // Payload is RTAPI::GroupMember*
 #define EV_RTAPI_GROUP_MEMBER_LEFT    "RTAPI_GROUP_MEMBER_LEFT"    // Payload is RTAPI::GroupMember*
 #define EV_RTAPI_GROUP_MEMBER_UPDATED "RTAPI_GROUP_MEMBER_UPDATED" // Payload is RTAPI::GroupMember*
-#define EV_RTAPI_COMBAT_EVENT         "EV_RTAPI_COMBAT_EVENT"      // Payload is RTAPI::CombatEvent*
+#define EV_RTAPI_COMBAT_EVENT         "RTAPI_COMBAT_EVENT"         // Payload is RTAPI::CombatEvent*
 
 #include <cstdint>
 
