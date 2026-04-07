@@ -14,6 +14,7 @@
 #define EV_RTAPI_GROUP_MEMBER_JOINED  "RTAPI_GROUP_MEMBER_JOINED"  // Payload is RTAPI::GroupMember*
 #define EV_RTAPI_GROUP_MEMBER_LEFT    "RTAPI_GROUP_MEMBER_LEFT"    // Payload is RTAPI::GroupMember*
 #define EV_RTAPI_GROUP_MEMBER_UPDATED "RTAPI_GROUP_MEMBER_UPDATED" // Payload is RTAPI::GroupMember*
+#define EV_RTAPI_COMBAT_EVENT         "EV_RTAPI_COMBAT_EVENT"      // Payload is RTAPI::CombatEvent*
 
 #include <cstdint>
 
@@ -119,6 +120,70 @@ typedef struct GroupMember
 	uint32_t IsCommander  : 1;
 	uint32_t IsLieutenant : 1;
 } GroupMember;
+
+///----------------------------------------------------------------------------------------------------
+/// EAgentType Enumeration
+///----------------------------------------------------------------------------------------------------
+enum EAgentType
+{
+	AT_Character,
+	AT_Gadget,
+	AT_AttackTarget
+};
+
+///----------------------------------------------------------------------------------------------------
+/// Agent Struct
+///----------------------------------------------------------------------------------------------------
+typedef struct Agent
+{
+	uint32_t   ID;
+	uint32_t   SpeciesID;
+	EAgentType Type;
+	char       Name[128];
+
+	bool       IsMinion;
+	uint32_t   OwnerID;
+} Agent;
+
+///----------------------------------------------------------------------------------------------------
+/// ECombatEventType Enumeration
+///----------------------------------------------------------------------------------------------------
+enum ECombatEventType
+{
+	CET_Health,
+	CET_Down,
+	CET_Death
+};
+
+///----------------------------------------------------------------------------------------------------
+/// Skill Struct
+///----------------------------------------------------------------------------------------------------
+typedef struct Skill
+{
+	uint32_t ID;
+	char     Name[128];
+} Skill;
+
+///----------------------------------------------------------------------------------------------------
+/// CombatEvent Struct
+///----------------------------------------------------------------------------------------------------
+struct CombatEvent
+{
+	ECombatEventType Type;
+
+	uint64_t         Time;
+
+	Agent*           SrcAgent;
+	Agent*           DstAgent;
+	Skill*           Skill;
+
+	float            Value;
+	float            ValueAlt;
+
+	uint32_t         IsConditionDamage : 1;
+	uint32_t         IsCritical        : 1;
+	uint32_t         IsFumble          : 1;
+};
 
 ///----------------------------------------------------------------------------------------------------
 /// RealTimeData Struct
