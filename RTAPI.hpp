@@ -146,8 +146,9 @@ namespace RTAPI
 		EAgentType Type;
 		char       Name[128];
 	
-		bool       IsMinion;
-		uint32_t   OwnerID;
+		uint32_t   IsMinion : 1;
+		uint32_t   IsSelf   : 1;
+		uint32_t   OwnerID;      // valid value only if IsMinion == true
 	};
 
 	
@@ -175,13 +176,13 @@ namespace RTAPI
 	///----------------------------------------------------------------------------------------------------
 	struct CombatEvent
 	{
-		ECombatEventType Type;
-	
 		uint64_t         Time;
 	
 		Agent*           SrcAgent;
 		Agent*           DstAgent;
 		Skill*           Skill;
+
+		ECombatEventType Type;
 	
 		float            Value;
 		float            ValueAlt;
@@ -200,6 +201,7 @@ namespace RTAPI
 		uint32_t        GameBuild; // Set to 0 when RTAPI is unloaded.
 		EGameState      GameState;
 		EGameLanguage   Language;
+
 		/* Instance/World Data */
 		ETimeOfDay      TimeOfDay;
 		uint32_t        MapID;

@@ -141,8 +141,9 @@ typedef struct Agent
 	EAgentType Type;
 	char       Name[128];
 
-	bool       IsMinion;
-	uint32_t   OwnerID;
+	uint32_t   IsMinion : 1;
+	uint32_t   IsSelf   : 1;
+	uint32_t   OwnerID;      // valid value only if IsMinion == true
 } Agent;
 
 ///----------------------------------------------------------------------------------------------------
@@ -169,13 +170,13 @@ typedef struct Skill
 ///----------------------------------------------------------------------------------------------------
 struct CombatEvent
 {
-	ECombatEventType Type;
-
 	uint64_t         Time;
 
 	Agent*           SrcAgent;
 	Agent*           DstAgent;
 	Skill*           Skill;
+
+	ECombatEventType Type;
 
 	float            Value;
 	float            ValueAlt;
