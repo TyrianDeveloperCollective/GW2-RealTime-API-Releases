@@ -14,6 +14,7 @@
 #define EV_RTAPI_GROUP_MEMBER_JOINED  "RTAPI_GROUP_MEMBER_JOINED"  // Payload is RTAPI::GroupMember*
 #define EV_RTAPI_GROUP_MEMBER_LEFT    "RTAPI_GROUP_MEMBER_LEFT"    // Payload is RTAPI::GroupMember*
 #define EV_RTAPI_GROUP_MEMBER_UPDATED "RTAPI_GROUP_MEMBER_UPDATED" // Payload is RTAPI::GroupMember*
+#define EV_RTAPI_COMBAT_EVENT         "RTAPI_COMBAT_EVENT"         // Payload is RTAPI::CombatEvent*
 
 #include <cstdint>
 
@@ -126,6 +127,72 @@ namespace RTAPI
 	};
 
 	///----------------------------------------------------------------------------------------------------
+	/// EAgentType Enumeration
+	///----------------------------------------------------------------------------------------------------
+	enum class EAgentType
+	{
+		Character,
+		Gadget,
+		AttackTarget
+	};
+	
+	///----------------------------------------------------------------------------------------------------
+	/// Agent Struct
+	///----------------------------------------------------------------------------------------------------
+	struct Agent
+	{
+		uint32_t   ID;
+		uint32_t   SpeciesID;
+		EAgentType Type;
+		char       Name[128];
+	
+		uint32_t   IsMinion : 1;
+		uint32_t   IsSelf   : 1;
+		uint32_t   OwnerID;      // valid value only if IsMinion == true
+	};
+
+	
+	///----------------------------------------------------------------------------------------------------
+	/// ECombatEventType Enumeration
+	///----------------------------------------------------------------------------------------------------
+	enum class ECombatEventType
+	{
+		Health,
+		Down,
+		Death
+	};
+	
+	///----------------------------------------------------------------------------------------------------
+	/// Skill Struct
+	///----------------------------------------------------------------------------------------------------
+	struct Skill
+	{
+		uint32_t ID;
+		char     Name[128];
+	};
+	
+	///----------------------------------------------------------------------------------------------------
+	/// CombatEvent Struct
+	///----------------------------------------------------------------------------------------------------
+	struct CombatEvent
+	{
+		uint64_t         Time;
+	
+		Agent*           SrcAgent;
+		Agent*           DstAgent;
+		Skill*           Skill;
+
+		ECombatEventType Type;
+	
+		float            Value;
+		float            ValueAlt;
+	
+		uint32_t         IsConditionDamage : 1;
+		uint32_t         IsCritical        : 1;
+		uint32_t         IsFumble          : 1;
+	};
+
+	///----------------------------------------------------------------------------------------------------
 	/// RealTimeData Struct
 	///----------------------------------------------------------------------------------------------------
 	struct RealTimeData
@@ -134,6 +201,7 @@ namespace RTAPI
 		uint32_t        GameBuild; // Set to 0 when RTAPI is unloaded.
 		EGameState      GameState;
 		EGameLanguage   Language;
+
 		/* Instance/World Data */
 		ETimeOfDay      TimeOfDay;
 		uint32_t        MapID;
